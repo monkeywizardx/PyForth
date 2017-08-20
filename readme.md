@@ -25,5 +25,5 @@ Note that if a pyforth file isn't ended with "bye", it will drop you into the RE
 - [x] Add variable support
 - [x] Add user-defined function support 
 - [x] Add an if statement.
-- [ ] Add more comparison operators.
+- [x] Add more comparison operators.
 - [ ] Add loops.
