@@ -22,4 +22,5 @@ primitives = {
   '<=': lambda: forthcomp('<='),
   'input': lambda: stack.append(input(">")),
   'emit': lambda: print(chr(stack.pop())),
+  'rnd': lambda: random.randint(stack.pop(), stack.pop()),
 }
