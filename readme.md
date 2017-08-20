@@ -29,5 +29,5 @@ Note that if a pyforth file isn't ended with "bye", it will drop you into the RE
 - [x] Add more comparison operators.
 - [x] Add loops.
 #### Future Edits
-- [ ] Rewrite some primitives as bootstrapped PyForth code.
+- [x] Rewrite some primitives as bootstrapped PyForth code.
 - [ ] Rewrite eval function into something less kludgy.
