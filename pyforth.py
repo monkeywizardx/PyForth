@@ -1,11 +1,10 @@
 from sys import argv
 import forth
-executing = True
 
 def run(string):
 	forth.forth_eval(forth.parse(string))
 def main_loop():
-  while executing:
+  while forth.executing:
     try: run(input("pyforth>"))
     except IndexError:
       print("Stack Error!")
