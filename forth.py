@@ -9,7 +9,7 @@ def forth_eval(parsed_array):
   line_ptr = 0
   while line_ptr < len(parsed_array):
     word = parsed_array[line_ptr] # Create "word" as equal to the current word pointed to. 
-    try: int(word) # Check if the word is an integer.
+    try: int(round(float(word))) # Check if the word is an integer.
     except ValueError: # If the word isn't an integer, then move onto the next part of compilation
       try: word_dict[word] # Check if it's a user defined word.
       except KeyError:
@@ -93,7 +93,7 @@ def forth_eval(parsed_array):
       else:
         forth_eval(parse(word_dict[word])) # If it is a user-defined word, run it.
     else: # if it IS a number, add it to the stack.
-      stack.append(int(word))
+      stack.append(int(round(float(word))))
     line_ptr += 1 # Continue the loop!
 
 primitives['eval'] = lambda: forth_eval(parse(str(stack.pop())))
