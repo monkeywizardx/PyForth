@@ -110,12 +110,23 @@ def forth_eval(parsed_array):
                 string += parsed_array[line_ptr] + " "
                 line_ptr += 1
               stack.append(string)
+            elif word == 'do':
+              line_ptr += 1
+              repeated_code = ""
+              while parsed_array[line_ptr] != 'loop':
+                repeated_code += parsed_array[line_ptr] + " "
+                line_ptr += 1
+              loop_ctr = 0
+              loop_total = stack.pop() - stack.pop()
+              while loop_ctr < loop_total:
+                forth_eval(parse(repeated_code))
+                loop_ctr += 1
             else:
               print("Undefined Word at {}".format(word)) # This is the undef'd error message.
           else:
-            forth_eval(parse(word_dict[word])) # If it is a user defined word, execute it as code.
+            primitives[word]() # If it is a primitive, run it.
       else:
-        primitives[word]() # If it is a primitive, run it.
+        forth_eval(parse(word_dict[word])) # If it is a user-defined word, run it.
     else: # if it IS a number, add it to the stack.
       stack.append(int(word))
     line_ptr += 1 # Continue the loop!
