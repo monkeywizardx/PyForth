@@ -1,3 +1,6 @@
+#PyForth.py is only compatible with version 3!
+
+from sys import argv# Get command line arguements, for file running purposes.
 stack = []
 executing = True
 
@@ -98,6 +101,20 @@ def forth_eval(parsed_array):
                 while parsed_array[line_ptr] != "endif":
                   line_ptr += 1
               forth_eval(parse(code_str))
+            elif word == '."':
+              line_ptr += 1
+              string = ""
+              while parsed_array[line_ptr] != '"':
+                string += parsed_array[line_ptr] + " "
+                line_ptr += 1
+              print(string)
+            elif word == 's"':
+              line_ptr += 1
+              string = ""
+              while parsed_array[line_ptr] != '"':
+                string += parsed_array[line_ptr] + " "
+                line_ptr += 1
+              stack.append(string)
             else:
               print("Undefined Word at {}".format(word)) # This is the undef'd error message.
           else:
@@ -114,4 +131,11 @@ def main_loop():
       print("Stack Error!")
       stack.append(-127)
 
-main_loop()
+if __name__ == "__main__":
+  if len(argv) == 1:
+    main_loop()
+  else:
+    file = open(argv[1], 'r')
+    forth_eval(parse(file.read()))
+    main_loop()
+
