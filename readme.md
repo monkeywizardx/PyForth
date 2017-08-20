@@ -12,6 +12,6 @@ The current plan is to continue extendending the language, however, it is the sc
 - [x] Create the basics of the interpreter (stack, REPL)
 - [x] Add variable support
 - [x] Add user-defined function support 
-- [ ] Add an if statement.
+- [x] Add an if statement.
 - [ ] Add more comparison operators.
 - [ ] Add loops.
