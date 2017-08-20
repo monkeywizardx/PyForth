@@ -27,7 +27,7 @@ def forth_eval(parsed_array):
               word_dict[function_name] = code_str
               line_ptr += 1
             elif word == "bye":
-		print("Bye.")
+                print("Bye.")
 		executing = False
 	    elif word == "@":
               line_ptr += 1 # Force the pointer ahead so the variable isn't treated as code.
