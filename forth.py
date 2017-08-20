@@ -82,7 +82,7 @@ def forth_eval(parsed_array):
                         forth_eval(parse(repeated_code))
                         loop_ctr += 1
               else:
-                while loop_ctr >= loop_total:
+                while loop_ctr > loop_total:
                         forth_eval(parse(repeated_code))
                         loop_ctr -= 1
             else:
