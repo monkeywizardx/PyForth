@@ -12,8 +12,6 @@ primitives = {
   '.s': stackshow, # Show the stack.
   '.': lambda: print(stack.pop()), # Print the top off the stack.
   '+': lambda: stack.append(stack.pop() + stack.pop()),
-  '-': lambda: stack.append(stack.pop() - stack.pop()),
-  '*': lambda: stack.append(stack.pop() * stack.pop()),
   '/': lambda: stack.append(stack.pop() / stack.pop()),
   '^': lambda: stack.append(stack.pop() ** stack.pop()),
   '=': lambda: forthcomp("=="),
