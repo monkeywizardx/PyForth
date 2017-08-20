@@ -14,6 +14,7 @@ primitives = {
   '+': lambda: stack.append(stack.pop() + stack.pop()),
   '/': lambda: stack.append(stack.pop() / stack.pop()),
   '^': lambda: stack.append(stack.pop() ** stack.pop()),
+  'mod': lambda: stack.append(stack.pop() % stack.pop()),
   '=': lambda: forthcomp("=="),
   '>': lambda: forthcomp(">"),
   '<': lambda: forthcomp("<"),
