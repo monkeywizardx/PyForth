@@ -28,6 +28,7 @@ def forth_eval(parsed_array):
               line_ptr += 1
             elif word == "bye":
                 print("Bye.")
+		global executing
                 executing = False
             elif word == "@":
               line_ptr += 1 # Force the pointer ahead so the variable isn't treated as code.
