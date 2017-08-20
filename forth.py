@@ -96,4 +96,4 @@ def forth_eval(parsed_array):
       stack.append(int(word))
     line_ptr += 1 # Continue the loop!
 
-	
+primitives['eval'] = lambda: forth_eval(parse(str(stack.pop())))
