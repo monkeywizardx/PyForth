@@ -77,9 +77,14 @@ def forth_eval(parsed_array):
                 line_ptr += 1
               loop_ctr = 0
               loop_total = stack.pop() - stack.pop()
-              while loop_ctr < loop_total:
-                forth_eval(parse(repeated_code))
-                loop_ctr += 1
+              if loop_total > 0:
+                while loop_ctr < loop_total:
+                        forth_eval(parse(repeated_code))
+                        loop_ctr += 1
+              else:
+                while loop_ctr >= loop_total:
+                        forth_eval(parse(repeated_code))
+                        loop_ctr -= 1
             else:
               print("Undefined Word at {}".format(word)) # This is the undef'd error message.
           else:
