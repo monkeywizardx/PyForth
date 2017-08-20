@@ -1,6 +1,6 @@
 from forth_words import *
 from primitives import *
-
+executing = True # Part of a required hack, to allow the main-loop to quit.
 
 def parse(string):
   return string.lower().split()
@@ -26,10 +26,10 @@ def forth_eval(parsed_array):
                 line_ptr += 1
               word_dict[function_name] = code_str
               line_ptr += 1
-            elif word == "variable":
-              line_ptr += 1 # Force the pointer ahead so the pointer isn't tread as code.
-              variables[parsed_array[line_ptr]] = 0; # Create a variable.
-            elif word == "@":
+            elif word == "bye":
+		print("Bye.")
+		executing = False
+	    elif word == "@":
               line_ptr += 1 # Force the pointer ahead so the variable isn't treated as code.
               stack.append(variables[parsed_array[line_ptr]]) # Append the value of the variable.
             elif word == "!": # This is the "setter" command for the variable.
