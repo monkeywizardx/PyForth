@@ -5,17 +5,8 @@ stack = []
 executing = True
 
 #These are any functions needed for primitives that can't be lambdas.
-def dup():
-  top_element = stack.pop() # Pop off the top element
-  stack.append(top_element) # Push the top_element twice.
-  stack.append(top_element)
 def stackshow():
   print("<{}> {}".format(len(stack), stack)) # Just print the entire stack, with some formatting.
-def swap():
-  top = stack.pop() # Pop off the top element
-  bottom = stack.pop() # Pop off the second element
-  stack.append(bottom) # Append the second first
-  stack.append(top) # Append the top last.
 def forthcomp(operator):
     exec('''
 if stack.pop() {} stack.pop():
@@ -28,10 +19,8 @@ def end(exitMsg = "Bye."):
   executing = False # Turn executing off, so that way we don't evaluate any more FORTH calls.
 # The collection of primitives. Mostly lambdas, but there is some calls to the functions above.
 primitives = {
-  'dup': dup, # Duplicate the top of the stack.
   '.s': stackshow, # Show the stack.
   '.': lambda: print(stack.pop()), # Print the top off the stack.
-  'swap': swap,
   '+': lambda: stack.append(stack.pop() + stack.pop()),
   '-': lambda: stack.append(stack.pop() - stack.pop()),
   '*': lambda: stack.append(stack.pop() * stack.pop()),
@@ -48,13 +37,14 @@ primitives = {
 variables = {
   
 }
-# The collection of user defined words. It's actually executed in the same way as REPL code.
+# The collection of user defined words and bootstrapped words. It's actually executed in the same way as REPL code.
 word_dict = {
-
+  'swap': '! swap-top ! swap-bottom @ swap-top @ swap-bottom', # swap. It works without variable definiton because of a quirk of !
+  'dup': '! dup-value @ dup-value @ dup-value', # dup works on similar logic to above.
 }
 
 def parse(string):
-  return string.split()
+  return string.lower().split()
 
 def forth_eval(parsed_array):
   line_ptr = 0
@@ -62,9 +52,9 @@ def forth_eval(parsed_array):
     word = parsed_array[line_ptr] # Create "word" as equal to the current word pointed to. 
     try: int(word) # Check if the word is an integer.
     except ValueError: # If the word isn't an integer, then move onto the next part of compilation
-      try: primitives[word] # Check if it's a primitive.
+      try: word_dict[word] # Check if it's a user defined word.
       except KeyError:
-          try: word_dict[word] # Check if it's a user defined word.
+          try: primitives[word] # Check if it's a primitive, since users can redefine primitves.
           except KeyError:
             if word == ":": # Check and see if it's the start of a function definition.
               line_ptr += 1
