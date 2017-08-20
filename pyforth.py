@@ -8,7 +8,7 @@ def main_loop():
     try: run(input("pyforth>"))
     except IndexError:
       print("Stack Error!")
-      stack.append(-127)
+      forth.stack.append(-127)
 
 if __name__ == "__main__":
   if len(argv) == 1:
