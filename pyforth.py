@@ -86,19 +86,19 @@ def forth_eval(parsed_array):
               code_str = "" # Create the later evaluated code_str.
               boolean = stack.pop()
               if boolean == 0:
-                while parsed_array[line_ptr] != "then":
+                while parsed_array[line_ptr] != "else":
                   line_ptr += 1
                 line_ptr += 1
-                while parsed_array[line_ptr] != "endif":
+                while parsed_array[line_ptr] != "then":
                   code_str += parsed_array[line_ptr]
                   code_str += " "
                   line_ptr += 1
               else:
-                while parsed_array[line_ptr] != "then":
+                while parsed_array[line_ptr] != "else":
                   code_str += parsed_array[line_ptr]
                   code_str += " "
                   line_ptr += 1
-                while parsed_array[line_ptr] != "endif":
+                while parsed_array[line_ptr] != "then":
                   line_ptr += 1
               forth_eval(parse(code_str))
             elif word == '."':
