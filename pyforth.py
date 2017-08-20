@@ -75,18 +75,38 @@ def forth_eval(parsed_array):
             elif word == "@":
               line_ptr += 1 # Force the pointer ahead so the variable isn't treated as code.
               stack.append(variables[parsed_array[line_ptr]]) # Append the value of the variable.
-            elif word == "!":
+            elif word == "!": # This is the "setter" command for the variable.
               line_ptr += 1
-              variables[parsed_array[line_ptr]] = stack.pop()
+              variables[parsed_array[line_ptr]] = stack.pop() # It sets a given variable to the top of the stack.
+            elif word == "if": # The "if" statement. Quite possibly the most important command.
+              line_ptr += 1 # Make sure the IF isn't interpreted.
+              code_str = "" # Create the later evaluated code_str.
+              boolean = stack.pop()
+              if boolean == 0:
+                while parsed_array[line_ptr] != "then":
+                  line_ptr += 1
+                line_ptr += 1
+                while parsed_array[line_ptr] != "endif":
+                  code_str += parsed_array[line_ptr]
+                  code_str += " "
+                  line_ptr += 1
+              else:
+                while parsed_array[line_ptr] != "then":
+                  code_str += parsed_array[line_ptr]
+                  code_str += " "
+                  line_ptr += 1
+                while parsed_array[line_ptr] != "endif":
+                  line_ptr += 1
+              forth_eval(parse(code_str))
             else:
-              print("Neither of those words are defined!") # This is the undef'd error message.
+              print("Undefined Word at {}".format(word)) # This is the undef'd error message.
           else:
             forth_eval(parse(word_dict[word])) # If it is a user defined word, execute it as code.
       else:
         primitives[word]() # If it is a primitive, run it.
-    else:
+    else: # if it IS a number, add it to the stack.
       stack.append(int(word))
-    line_ptr += 1
+    line_ptr += 1 # Continue the loop!
 def main_loop():
   while executing:
     try: forth_eval(parse(input("pyforth>")))
