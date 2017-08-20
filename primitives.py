@@ -20,6 +20,5 @@ primitives = {
   '>=': lambda: forthcomp('>='),
   '<=': lambda: forthcomp('<='),
   'input': lambda: stack.append(input(">")),
-  'eval': lambda: forth_eval(parse(str(stack.pop()))),
   'emit': lambda: print(chr(stack.pop())),
 }
