@@ -28,8 +28,8 @@ def forth_eval(parsed_array):
               line_ptr += 1
             elif word == "bye":
                 print("Bye.")
-		executing = False
-	    elif word == "@":
+                executing = False
+            elif word == "@":
               line_ptr += 1 # Force the pointer ahead so the variable isn't treated as code.
               stack.append(variables[parsed_array[line_ptr]]) # Append the value of the variable.
             elif word == "!": # This is the "setter" command for the variable.
