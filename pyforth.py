@@ -16,11 +16,12 @@ def swap():
   bottom = stack.pop() # Pop off the second element
   stack.append(bottom) # Append the second first
   stack.append(top) # Append the top last.
-def fortheq():
-    if stack.pop() == stack.pop():
-     stack.append(1)
-    else:
-      stack.append(0)
+def forthcomp(operator):
+    exec('''
+if stack.pop() {} stack.pop():
+    stack.append(1)
+else:
+    stack.append(0)'''.format(operator))
 def end(exitMsg = "Bye."):
   global executing # Need to have executing global. There's no way to avoid it, best practices or not.
   print(exitMsg) # Print the exit message.
@@ -36,7 +37,11 @@ primitives = {
   '*': lambda: stack.append(stack.pop() * stack.pop()),
   '/': lambda: stack.append(stack.pop() / stack.pop()),
   '^': lambda: stack.append(stack.pop() ** stack.pop()),
-  '=': fortheq,
+  '=': lambda: forthcomp("=="),
+  '>': lambda: forthcomp(">"),
+  '<': lambda: forthcomp("<"),
+  '>=': lambda: forthcomp('>='),
+  '<=': lambda: forthcomp('<='),
   'bye': end,
   'emit': lambda: print(chr(stack.pop())),
 }
