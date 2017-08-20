@@ -21,9 +21,13 @@ python pyforth.py <file_name>
 Note that if a pyforth file isn't ended with "bye", it will drop you into the REPL once it's finished executing.
 ### Features
 
+#### First major features
 - [x] Create the basics of the interpreter (stack, REPL)
 - [x] Add variable support
 - [x] Add user-defined function support 
 - [x] Add an if statement.
 - [x] Add more comparison operators.
-- [ ] Add loops.
+- [x] Add loops.
+#### Future Edits
+- [ ] Rewrite some primitives as bootstrapped PyForth code.
+- [ ] Rewrite eval function into something less kludgy.
