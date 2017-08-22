@@ -18,6 +18,17 @@ class Forth:
     self.pointer = 0 
     self.primitives = {
       '+': lambda: self.stack.push(self.stack.pop() + self.stack.pop()),
+      '*': lambda: self.stack.push(self.stack.pop() * self.stack.pop()),
+      '/': lambda: self.stack.push(self.stack.pop() // self.stack.pop()),
+      'mod': lambda: self.stack.push(self.stack.pop() ** self.stack.pop()),
+      '^': lambda: self.stack.push(self.stack.pop() % self.stack.pop()),
+      '.': lambda: print(self.stack.pop()),
+      '>': lambda: self.stack.push(-1) if self.stack.pop() > self.stack.pop() else self.stack.push(0),
+      '=': lambda: self.stack.push(-1) if self.stack.pop() == self.stack.pop() else self.stack.push(0),
+      '<': lambda: self.stack.push(-1) if self.stack.pop() < self.stack.pop() else self.stack.push(0),
+      '<=': lambda: self.stack.push(-1) if self.stack.pop() <= self.stack.pop() else self.stack.push(0),
+      '>=': lambda: self.stack.push(-1) if self.stack.pop() >= self.stack.pop() else self.stack.push(0),
+      'bye': lambda: 0,
     } 
     # ^ Create the primitives array. All primitives are pieces of Python code, usually wrapped in a lambda.
     self.words = words # This is the beginning definition of words.
@@ -42,7 +53,17 @@ class Forth:
       return "word"
   
   def addWord(self):
-    pass
+    '''self.pointer += 1
+    word_name = self.get_memory_at_pointer()
+    code_str = ""
+    self.pointer += 1
+    while self.get_memory_at_pointer() != ';':
+      if self.get_memory_at_pointer() == word_name:
+        print("Error! Undefined word at {}! Excising word.".format(word_name))
+      else:
+        code_str += self.get_memory_at_pointer() + " "
+      self.pointer += 1
+    self.words[word_name] = code_str'''
   # -----Macro          Code-----
   def ifStatement(self):
     pass
