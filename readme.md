@@ -30,4 +30,4 @@ Note that if a pyforth file isn't ended with "bye", it will drop you into the RE
 - [x] Add loops.
 #### Future Edits
 - [x] Rewrite some primitives as bootstrapped PyForth code.
-- [ ] Rewrite eval function into something less kludgy.
+- [x] Rewrite eval function into something less kludgy.
