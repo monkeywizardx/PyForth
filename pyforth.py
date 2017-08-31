@@ -1,10 +1,13 @@
 import forth
 executing = true
-PyForth = forth.Forth()
-def parse(string):
-	return string.lower().split()
+PyForth = forth.Forth({
+        'DUP': 'VARIABLE holder holder ! holder @ holder @',
+        'SWAP': 'VARIABLE top VARIABLE bottom top ! bottom ! top @ bottom @'
+})
 
 while executing:
-	code = parse(input("forth>"))
-	if "bye" in code:
-		executing = false
+	REPL_input = input("pyforth>")
+        if REPL_input.upper() == 'BYE':
+                executing = false
+        else:
+                PyForth.evaluate(PyForth.parse(REPL_input))
