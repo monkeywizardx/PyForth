@@ -13,12 +13,8 @@ To gain quick access to the pyforth repl, just do as follows:
 ```
 python pyforth.py
 ```
-To run a file, do:
-```
-python pyforth.py <file_name>
-```
+To leave pyforth, type "bye". "bye" must be alone on the line!
 
-Note that if a pyforth file isn't ended with "bye", it will drop you into the REPL once it's finished executing.
 ### Features
 
 #### First major features
@@ -26,7 +22,7 @@ Note that if a pyforth file isn't ended with "bye", it will drop you into the RE
 - [x] Add variable support
 - [x] Add user-defined function support 
 - [x] Add an if statement.
-- [x] Add more comparison operators.
+- [x] Add comparison operators.
 - [x] Add loops.
 #### Future Edits
 - [x] Rewrite some primitives as bootstrapped PyForth code.
