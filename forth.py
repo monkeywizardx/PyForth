@@ -89,6 +89,12 @@ class Forth:
               elseDefinition.append(input_stream.pop(0))
             input_stream.pop(0)
             token_form = ("IF", ' '.join(ifDefinition), ' '.join(elseDefinition))
+          if token == 'DO' and token_form == None:
+            loopDef = []
+            while loopDef[0].upper() != 'LOOP':
+              loopDef.append(input_stream.pop(0))
+            input_stream.pop(0)
+            token_form = ("LOOP", ' '.join(loopDef))
           if token_form == None and token == 'VARIABLE':
             token_form = ('VARIABLE_CREATE', input_stream.pop(0))
           if token_form == None:
@@ -111,6 +117,9 @@ class Forth:
           self.words[token[1]] = token[2]
         if token_type == 'VARIABLE_CREATE':
           self.variables[token[1]] = 0
+        if token_type == 'LOOP':
+          self.variables['I'] = 0
+          self.loopHandle(token[1])
         if token_type == "IF":
           truth_value = self.stack.pop()
           if truth_value == 0:
@@ -125,4 +134,9 @@ class Forth:
           self.current_variable = token[1]
         if token_type == "UNKNOWN":
           print("Unknown word at {}. Skipping.".format(token[1]))
-  
+    def loopHandle(self, token):
+        start = self.stack.pop()
+        end = self.stack.pop()
+        while(self.variables['I'] != end):
+            self.evaluate(token[1])
+            self.variables['I'] += 1
