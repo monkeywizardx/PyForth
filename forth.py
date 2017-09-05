@@ -19,6 +19,11 @@ def setVariable(forth):
   forth.variables[forth.current_variable] = forth.stack.pop()
 def getVariable(forth):
   forth.stack.push(forth.variables[forth.current_variable])
+def divmod(forth):
+    value1 = forth.pop()
+    value2 = forth.pop()
+    forth.stack.push(value1 // value2)
+    forth.stack.push(value1 % value2)
 class Forth:
     '''
     Forth is a simple class meant to encapsulate all PyForth related code and prevent it from spilling over into the main namespace.
@@ -29,8 +34,7 @@ class Forth:
             '+': lambda self: self.stack.push(self.stack.pop() + self.stack.pop()),
             '*': lambda self: self.stack.push(self.stack.pop() * self.stack.pop()),
             '-': lambda self: self.stack.push(self.stack.pop() - self.stack.pop()),
-            '/': lambda self: self.stack.push(self.stack.pop() // self.stack.pop()),
-            'MOD': lambda self: self.stack.push(self.stack.pop() % self.stack.pop()),
+            'DIVMOD': lambda self: divmod(self)
             '.': lambda self: print(self.stack.pop()),
             '.s': lambda self: print(self.stack),
             'DROP': lambda self: self.stack.pop(),
@@ -118,7 +122,6 @@ class Forth:
         if token_type == 'VARIABLE_CREATE':
           self.variables[token[1]] = 0
         if token_type == 'LOOP':
-          self.variables['I'] = 0
           self.loopHandle(token[1])
         if token_type == "IF":
           truth_value = self.stack.pop()
@@ -135,7 +138,7 @@ class Forth:
         if token_type == "UNKNOWN":
           print("Unknown word at {}. Skipping.".format(token[1]))
     def loopHandle(self, token):
-        start = self.stack.pop()
+        self.variables['I'] = self.stack.pop()
         end = self.stack.pop()
         while(self.variables['I'] != end):
             self.evaluate(token[1])
