@@ -1,26 +1,10 @@
-stack = []
-def stackshow():
-  print("<{}> {}".format(len(stack), stack)) # Just print the entire stack, with some formatting.
-def forthcomp(operator):
-    exec('''
-if stack.pop() {} stack.pop():
-    stack.append(1)
-else:
-    stack.append(0)'''.format(operator))
-# The collection of primitives. Mostly lambdas, but there is some calls to the functions above.
-primitives = {
-  '.s': stackshow, # Show the stack.
-  '.': lambda: print(stack.pop()), # Print the top off the stack.
-  '+': lambda: stack.append(stack.pop() + stack.pop()),
-  '/': lambda: stack.append(stack.pop() / stack.pop()),
-  '^': lambda: stack.append(stack.pop() ** stack.pop()),
-  'mod': lambda: stack.append(stack.pop() % stack.pop()),
-  '=': lambda: forthcomp("=="),
-  '>': lambda: forthcomp(">"),
-  '<': lambda: forthcomp("<"),
-  '>=': lambda: forthcomp('>='),
-  '<=': lambda: forthcomp('<='),
-  'input': lambda: stack.append(input(">")),
-  'emit': lambda: print(chr(stack.pop())),
-  'rnd': lambda: stack.append(random.randint(stack.pop(), stack.pop())),
-}
+"""Primitive word definitions for monkeyforth."""
+def store(env):
+    """Store variable."""
+    value = env.stack.pop()
+    location = env.stack.pop()
+    env.storage[location] = value
+
+def fetch(env):
+    """Fetch variables."""
+    env.stack.push(env.storage[env.stack.pop()])
