@@ -1,33 +1,28 @@
-# PyForth
-### A small, Forth-like language implemented in Python.
+# MonkeyForth
+### A small Forth, implemented in Python.
 
-
-I wrote this interpreter for fun, as an exercise in simple language constructs. It's syntax is inspired by Forth,
-and it currently has support for a small collection of primitives, user based word-definitions, and variables.
-
-The current plan is to continue extendending the language, however, it is the school year, so I won't have a huge amount of time to work on it.
+This project was started some time ago, and it was terrible, going by the name of PyForth. I've reimagined it as MonkeyForth,
+brought a linter, and started to work on a complete rewrite of the program.
 
 ### How to Use
 
-To gain quick access to the pyforth repl, just do as follows:
+To gain quick access to the monkeyforth REPL, just do as follows:
 ```
-python pyforth.py
+python monkeyforth.py
 ```
-To run a file, do:
+To run a file on a Linux computer:
 ```
-python pyforth.py <file_name>
+cat <file> | python monkeyforth.py
+```
+To run a file on in the windows command prompt
+```
+type <file> | python monkeyforth.py
 ```
 
-Note that if a pyforth file isn't ended with "bye", it will drop you into the REPL once it's finished executing.
 ### Features
 
 #### First major features
-- [x] Create the basics of the interpreter (stack, REPL)
-- [x] Add variable support
-- [x] Add user-defined function support 
-- [x] Add an if statement.
-- [x] Add more comparison operators.
-- [x] Add loops.
-#### Future Edits
-- [x] Rewrite some primitives as bootstrapped PyForth code.
-- [ ] Rewrite eval function into something less kludgy.
+- [ ] Create the basics of the interpreter (stack, REPL)
+- [ ] Add variable support
+- [ ] Add an if statement.
+- [ ] Add loops.
