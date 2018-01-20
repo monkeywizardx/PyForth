@@ -1,9 +1,11 @@
 """Compilation and dictionary features for PyForth."""
 
-word_dict = {}
 
 class ForthWord:
-    def __init__(self, code, primitive=False, dict_=default_dict):
+    """
+    Callable wrapper to make compilation possible.
+    """
+    def __init__(self, code, word_dict, primitive=False):
         """Compile a word into a callable."""
         if primitive:
             self.code = code
@@ -11,8 +13,8 @@ class ForthWord:
             self.code = [word_dict[x] for x in self.code.split()]
 
     def __call__(self, env):
-        if self.code.is_instance(list):
-            for f in self.code:
-                f(env)
+        if isinstance(self.code, list):
+            for word in self.code:
+                word(env)
         else:
             self.code(env)

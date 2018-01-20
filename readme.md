@@ -22,7 +22,7 @@ type <file> | python monkeyforth.py
 ### Features
 
 #### First major features
-- [ ] Create the basics of the interpreter (stack, REPL)
-- [ ] Add variable support
+- [x] Create the basics of the interpreter (stack, dictionary, input)
+- [x] Add variable support
 - [ ] Add an if statement.
 - [ ] Add loops.
