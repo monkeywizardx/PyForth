@@ -1,3 +1,4 @@
+"""Primitive word definitions for monkeyforth."""
 def store(env):
     """Store variable."""
     value = env.stack.pop()

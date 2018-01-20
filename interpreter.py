@@ -1,10 +1,16 @@
+"""Enviroment and interpretation of monkeyforth.
+"""
 import forth_dictionary
+import primitives
 
 class WordError(Exception):
     """Error type for failed word usage in monkeyforth."""
     pass
 
 class Stack:
+    """
+    Stack class wrapper.
+    """
     def __init__(self):
         """Generate a stack."""
         pass
@@ -20,7 +26,7 @@ class Enviroment:
     stack = Stack()
     words = {
         '!': forth_dictionary.ForthWord(primitives.store),
-        '@': forth_dictionary.ForthWord(primtiives.fetch),
+        '@': forth_dictionary.ForthWord(primitives.fetch),
     }
     storage = {}
     inbuffer = []
@@ -30,10 +36,9 @@ class Enviroment:
 
     def fetch_word(self):
         """Get a word from the input buffer."""
-        if inbuffer:
-            return inbuffer.pop(0)
-        else:
-            inbuffer = input().split()
+        if not self.inbuffer:
+            self.inbuffer = input().split()
+        return self.inbuffer.pop(0)
 
     def execute_word(self):
         """Execute the next word in the input buffer."""
@@ -41,6 +46,7 @@ class Enviroment:
         if word in self.words:
             self.words[word](self)
         else:
-            try: float(word)
+            try:
+                self.stack.push(float(word))
             except ValueError:
-                raise WordError("Unknown word {}").format(word)
+                raise WordError("Unknown word {}".format(word))
